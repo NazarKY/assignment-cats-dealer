@@ -7,13 +7,15 @@ class BestCatService
 
   def fetch_all_cats
     fetchers.each_with_object([]) do |fetcher, cats|
-      cats.concat(fetcher.fetch_cats)
+      cats.concat(fetcher.fetch)
     end
   end
 
   def find_best_deal
-    fetch_all_cats.min_by { |cat| cat['price'] }
+    fetch_all_cats.min_by(&:price)
   end
+
+  private
 
   attr_reader :fetchers
 end

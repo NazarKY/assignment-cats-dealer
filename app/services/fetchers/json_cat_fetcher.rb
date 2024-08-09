@@ -12,12 +12,12 @@ module Fetchers
 
     def parse(response)
       JSON.parse(response).map do |cat|
-        {
-          'name' => cat['name'],
-          'price' => cat['price'].to_f,
-          'location' => cat['location'],
-          'image' => cat['image']
-        }
+        Cat.new(
+          cat['name'],
+          cat['price'].to_f,
+          cat['location'],
+          cat['image']
+        )
       end
     end
   end

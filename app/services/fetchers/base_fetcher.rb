@@ -10,15 +10,15 @@ module Fetchers
     MAX_RETRIES = 3
     RETRY_DELAY = 2 # seconds
 
-    def fetch_cats
-      fetch_data(url)
+    def fetch
+      fetch_data
     end
 
     private
 
     attr_reader :url
 
-    def fetch_data(url)
+    def fetch_data
       uri = URI(url)
       retries = 0
 

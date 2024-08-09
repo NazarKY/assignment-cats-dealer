@@ -14,12 +14,12 @@ module Fetchers
       doc = Nokogiri::XML(response)
 
       doc.xpath('//cat').each_with_object([]) do |cat, cats|
-        cats << {
-          'name' => cat.at_xpath('title').text,
-          'price' => cat.at_xpath('cost').text.to_f,
-          'location' => cat.at_xpath('location').text,
-          'image' => cat.at_xpath('img').text
-        }
+        cats << Cat.new(
+          cat.at_xpath('title').text,
+          cat.at_xpath('cost').text.to_f,
+          cat.at_xpath('location').text,
+          cat.at_xpath('img').text
+        )
       end
     end
   end
