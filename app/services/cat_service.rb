@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BestCatService
+class CatService
   def initialize(fetchers)
     @fetchers = fetchers
   end
