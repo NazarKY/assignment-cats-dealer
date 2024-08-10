@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.3
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
