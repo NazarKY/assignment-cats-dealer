@@ -22,3 +22,7 @@ group :test do
   gem 'webmock'
   gem 'timecop'
 end
+
+group :development, :test do
+  gem 'factory_bot_rails'
+end
