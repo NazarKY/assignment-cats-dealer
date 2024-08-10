@@ -4,8 +4,6 @@ require 'json'
 
 module Fetchers
   class CatsUnlimitedFetcher < BaseFetcher
-    include ::Validators::CatValidator
-
     URL = 'https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/json'
 
     private
@@ -17,8 +15,6 @@ module Fetchers
           cost = cat['price'].to_f
           location = cat['location']
           image = cat['image']
-
-          validate_cat_attributes!(title:, cost:, location:, image:)
 
           ::Types::Cat.new(title, cost, location, image)
         rescue ::Errors::InvalidCatError => e

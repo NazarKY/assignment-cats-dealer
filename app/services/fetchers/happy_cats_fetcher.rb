@@ -4,7 +4,6 @@ require 'nokogiri'
 
 module Fetchers
   class HappyCatsFetcher < BaseFetcher
-    include ::Validators::CatValidator
 
     URL = 'https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/xml'
 
@@ -19,8 +18,6 @@ module Fetchers
           cost = cat.at_xpath('cost')&.text.to_f
           location = cat.at_xpath('location')&.text
           image = cat.at_xpath('img')&.text
-
-          validate_cat_attributes!(title:, cost:, location:, image:)
 
           cats << ::Types::Cat.new(title, cost, location, image)
         rescue ::Errors::InvalidCatError => e
