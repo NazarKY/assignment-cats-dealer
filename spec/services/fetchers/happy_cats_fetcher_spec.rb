@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Fetchers::HappyCatsFetcher do
-  let(:url) { 'https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/xml' }
   let(:fetcher) { described_class.new }
   let(:http_service) { instance_double(HttpService) }
   let(:response_body) do
@@ -27,7 +26,7 @@ RSpec.describe Fetchers::HappyCatsFetcher do
 
   before do
     allow(fetcher).to receive(:http_service).and_return(http_service)
-    allow(http_service).to receive(:get).with(url).and_return(response_body)
+    allow(http_service).to receive(:get).with(described_class::URL).and_return(response_body)
   end
 
   describe '#fetch' do
@@ -53,7 +52,7 @@ RSpec.describe Fetchers::HappyCatsFetcher do
 
     it 'returns an empty array if the response contains no cats' do
       empty_response = '<cats></cats>'
-      allow(http_service).to receive(:get).with(url).and_return(empty_response)
+      allow(http_service).to receive(:get).with(described_class::URL).and_return(empty_response)
 
       cats = fetcher.fetch
 

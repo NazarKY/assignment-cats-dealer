@@ -2,12 +2,12 @@
 
 module Fetchers
   class BaseFetcher
-    def initialize
-      @http_service = ::HttpService.new
+    def initialize(http_service: ::HttpService.new)
+      @http_service = http_service
     end
 
     def fetch
-      response = http_service.get(url)
+      response = http_service.get(self.class::URL)
 
       response ? parse(response) : []
     end

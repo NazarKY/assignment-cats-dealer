@@ -4,10 +4,7 @@ require 'nokogiri'
 
 module Fetchers
   class HappyCatsFetcher < BaseFetcher
-    def initialize
-      super
-      @url = 'https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/xml'
-    end
+    URL = 'https://nh7b1g9g23.execute-api.us-west-2.amazonaws.com/dev/cats/xml'
 
     private
 
