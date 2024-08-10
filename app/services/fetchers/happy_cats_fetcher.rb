@@ -22,7 +22,7 @@ module Fetchers
 
           validate_cat_attributes!(title:, cost:, location:, image:)
 
-          cats << Cat.new(title, cost, location, image)
+          cats << ::Types::Cat.new(title, cost, location, image)
         rescue ::Errors::InvalidCatError => e
           Rails.logger.error("Invalid cat data: #{e.message}. Skipping this cat.")
         end

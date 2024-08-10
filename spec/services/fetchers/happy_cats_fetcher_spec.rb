@@ -35,14 +35,14 @@ RSpec.describe Fetchers::HappyCatsFetcher do
       cats = fetcher.fetch
 
       expect(cats.size).to eq(2)
-      expect(cats.first).to be_an_instance_of(Cat)
+      expect(cats.first).to be_an_instance_of(Types::Cat)
       expect(cats.first).to have_attributes(
                               name: 'Bengal',
                               price: 600.0,
                               location: 'Odesa',
                               image: 'bengal.jpg'
                             )
-      expect(cats.last).to be_an_instance_of(Cat)
+      expect(cats.last).to be_an_instance_of(Types::Cat)
       expect(cats.last).to have_attributes(
                              name: 'Siamese',
                              price: 400.0,

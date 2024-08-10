@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe CatService do
   let(:fetcher1) { instance_double("Fetchers::CatsUnlimitedFetcher") }
   let(:fetcher2) { instance_double("Fetchers::HappyCatsFetcher") }
-  let(:cat1) { Cat.new('Bengal', 500, 'Odessa', 'bengal.jpg') }
-  let(:cat2) { Cat.new('Siamese', 300, 'Kyiv', 'siamese.jpg') }
-  let(:cat3) { Cat.new('Persian', 200, 'Lviv', 'persian.jpg') }
+  let(:cat1) { Types::Cat.new('Bengal', 500, 'Odessa', 'bengal.jpg') }
+  let(:cat2) { Types::Cat.new('Siamese', 300, 'Kyiv', 'siamese.jpg') }
+  let(:cat3) { Types::Cat.new('Persian', 200, 'Lviv', 'persian.jpg') }
 
   let(:service) { described_class.new([fetcher1, fetcher2]) }
 
