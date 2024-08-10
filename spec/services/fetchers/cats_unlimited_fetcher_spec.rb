@@ -15,6 +15,7 @@ RSpec.describe Fetchers::CatsUnlimitedFetcher do
   before do
     allow(fetcher).to receive(:http_service).and_return(http_service)
     allow(http_service).to receive(:get).with(described_class::URL).and_return(response_body)
+    allow(Rails.logger).to receive(:error)
   end
 
   describe '#fetch' do
@@ -44,6 +45,16 @@ RSpec.describe Fetchers::CatsUnlimitedFetcher do
       cats = fetcher.fetch
 
       expect(cats).to eq([])
+      expect(Rails.logger).not_to have_received(:error).with(/Failed to parse JSON response:/)
+    end
+
+    it 'returns an empty array if the response is invalid JSON' do
+      allow(http_service).to receive(:get).with(described_class::URL).and_return('<html></html>')
+
+      cats = fetcher.fetch
+
+      expect(cats).to eq([])
+      expect(Rails.logger).to have_received(:error).once.with(/Failed to parse JSON response:/)
     end
   end
 end

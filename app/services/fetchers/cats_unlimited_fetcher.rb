@@ -9,13 +9,18 @@ module Fetchers
     private
 
     def parse(response)
-      JSON.parse(response).map do |cat|
-        Cat.new(
-          cat['name'],
-          cat['price'].to_f,
-          cat['location'],
-          cat['image']
-        )
+      begin
+        JSON.parse(response).map do |cat|
+          Cat.new(
+            cat['name'],
+            cat['price'].to_f,
+            cat['location'],
+            cat['image']
+          )
+        end
+      rescue JSON::ParserError => e
+        Rails.logger.error("Failed to parse JSON response: #{e.message}")
+        []
       end
     end
   end
