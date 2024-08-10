@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CatsController, type: :request do
-  let(:cat1) { Types::Cat.new('Bengal', 500, 'Odessa', 'bengal.jpg') }
-  let(:cat2) { Types::Cat.new('Siamese', 300, 'Kyiv', 'siamese.jpg') }
-  let(:cat3) { Types::Cat.new('Persian', 200, 'Lviv', 'persian.jpg') }
+  let(:cat_bengal) { Types::Cat.new('Bengal', 500, 'Odessa', 'bengal.jpg') }
+  let(:cat_siamese) { Types::Cat.new('Siamese', 300, 'Kyiv', 'siamese.jpg') }
+  let(:cat_persian) { Types::Cat.new('Persian', 200, 'Lviv', 'persian.jpg') }
   let(:service) { instance_double(CatService) }
 
   before do
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::CatsController, type: :request do
   describe 'GET /api/v1/cats' do
     context 'when cats are available' do
       before do
-        allow(service).to receive(:fetch_all_cats).and_return([cat1, cat2, cat3])
+        allow(service).to receive(:fetch_all_cats).and_return([cat_bengal, cat_siamese, cat_persian])
         get '/api/v1/cats'
       end
 
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::CatsController, type: :request do
   describe 'GET /api/v1/cats/best_deal' do
     context 'when a best deal is available' do
       before do
-        allow(service).to receive(:find_best_deal).and_return(cat3)
+        allow(service).to receive(:find_best_deal).and_return(cat_persian)
         get '/api/v1/cats/best_deal'
       end
 

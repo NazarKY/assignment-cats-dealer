@@ -13,7 +13,7 @@ RSpec.describe Fetchers::BaseFetcher do
       end
     end
   end
-  let(:fetcher) { fetcher_class.new(http_service: http_service) }
+  let(:fetcher) { fetcher_class.new(http_service:) }
 
   describe '#fetch' do
     context 'when the fetcher successfully fetches data' do
@@ -49,7 +49,7 @@ RSpec.describe Fetchers::BaseFetcher do
           self::URL = 'https://example.com'
         end
       end
-      let(:incomplete_fetcher) { incomplete_fetcher_class.new(http_service: http_service) }
+      let(:incomplete_fetcher) { incomplete_fetcher_class.new(http_service:) }
 
       it 'raises a NotImplementedError' do
         allow(http_service).to receive(:get).and_return('mocked_response')

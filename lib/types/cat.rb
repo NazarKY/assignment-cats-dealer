@@ -16,7 +16,7 @@ module Types
         name:,
         price:,
         location:,
-        image:,
+        image:
       }
     end
 
