@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 require 'webmock/rspec'
 require 'timecop'
@@ -10,6 +8,7 @@ RSpec.describe HttpService do
 
   before do
     allow(Rails.logger).to receive(:error)
+    allow(http_service).to receive(:sleep) # Stub sleep so it doesn't delay the tests
   end
 
   describe '#get' do
