@@ -19,6 +19,9 @@ module Fetchers
           cat.at_xpath('img').text
         )
       end
+    rescue Nokogiri::XML::SyntaxError => e
+      Rails.logger.error("Failed to parse XML response: #{e.message}")
+      []
     end
   end
 end

@@ -27,6 +27,7 @@ RSpec.describe Fetchers::HappyCatsFetcher do
   before do
     allow(fetcher).to receive(:http_service).and_return(http_service)
     allow(http_service).to receive(:get).with(described_class::URL).and_return(response_body)
+    allow(Rails.logger).to receive(:error)
   end
 
   describe '#fetch' do
@@ -51,8 +52,7 @@ RSpec.describe Fetchers::HappyCatsFetcher do
     end
 
     it 'returns an empty array if the response contains no cats' do
-      empty_response = '<cats></cats>'
-      allow(http_service).to receive(:get).with(described_class::URL).and_return(empty_response)
+      allow(http_service).to receive(:get).with(described_class::URL).and_return('<cats></cats>')
 
       cats = fetcher.fetch
 
