@@ -9,14 +9,14 @@ module Fetchers
     private
 
     def parse(response)
-      JSON.parse(response).map do |cat|
+      JSON.parse(response).each_with_object([]) do |cat, cats|
         begin
           title = cat['name']
           cost = cat['price'].to_f
           location = cat['location']
           image = cat['image']
 
-          ::Types::Cat.new(title, cost, location, image)
+          cats << ::Types::Cat.new(title, cost, location, image)
         rescue ::Errors::InvalidCatError => e
           Rails.logger.error("Invalid cat data: #{e.message}. Skipping this cat.")
         end

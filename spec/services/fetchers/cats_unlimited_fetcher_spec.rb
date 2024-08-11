@@ -56,5 +56,27 @@ RSpec.describe Fetchers::CatsUnlimitedFetcher do
       expect(cats).to eq([])
       expect(Rails.logger).to have_received(:error).once.with(/Failed to parse JSON response:/)
     end
+
+    context 'when the response contains invalid cat data' do
+      let(:response_body) do
+        [
+          { 'name' => 'Bengal', 'price' => 500, 'location' => 'Odesa', 'image' => 'bengal.jpg' },
+          { 'name' => 'Siamese', 'price' => 300, 'location' => 'Kyiv' }
+        ].to_json
+      end
+
+      it 'logs an error and skips the invalid cat' do
+        cats = fetcher.fetch
+
+        expect(cats.size).to eq(1)
+        expect(cats.first).to have_attributes(
+                              name: 'Bengal',
+                              price: 500.0,
+                              location: 'Odesa',
+                              image: 'bengal.jpg'
+                            )
+        expect(Rails.logger).to have_received(:error).once.with(/Invalid cat data: Image is missing. Skipping this cat./)
+      end
+    end
   end
 end

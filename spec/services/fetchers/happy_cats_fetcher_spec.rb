@@ -58,5 +58,38 @@ RSpec.describe Fetchers::HappyCatsFetcher do
 
       expect(cats).to eq([])
     end
+
+    context 'when the response contains invalid cat data' do
+      let(:response_body) do
+        <<-XML
+          <cats>
+            <cat>
+              <title>Bengal</title>
+              <cost>600</cost>
+              <location>Odesa</location>
+              <img>bengal.jpg</img>
+            </cat>
+            <cat>
+              <title>Siamese</title>
+              <cost>400</cost>
+              <img>siamese.jpg</img>
+            </cat>
+          </cats>
+        XML
+      end
+
+      it 'logs an error and skips the invalid cat' do
+        cats = fetcher.fetch
+
+        expect(cats.size).to eq(1)
+        expect(cats.first).to have_attributes(
+                                name: 'Bengal',
+                                price: 600.0,
+                                location: 'Odesa',
+                                image: 'bengal.jpg'
+                              )
+        expect(Rails.logger).to have_received(:error).once.with(/Invalid cat data: Location is missing. Skipping this cat./)
+      end
+    end
   end
 end
