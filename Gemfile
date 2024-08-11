@@ -6,15 +6,8 @@ gem 'sqlite3', '~> 1.4'
 gem 'puma'
 gem 'rest-client'
 
-gem 'bootstrap-sass', '~> 3.4.1'
-gem 'coffee-rails', '~> 5.0'
-gem 'sass-rails', '~> 6.0'
-gem 'turbolinks', '~> 5.2', '>= 5.2.1'
-gem 'uglifier', '~> 4.2'
-
 group :development do
   gem 'listen', '~> 3.9'
-  gem 'web-console', '~> 4.2', '>= 4.2.1'
 end
 
 group :test do
