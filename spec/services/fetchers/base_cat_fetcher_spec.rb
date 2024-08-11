@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Fetchers::BaseFetcher do
+RSpec.describe Fetchers::BaseCatFetcher do
   let(:http_service) { instance_double(HttpService) }
   let(:fetcher_class) do
     Class.new(described_class) do
@@ -53,7 +55,7 @@ RSpec.describe Fetchers::BaseFetcher do
 
       it 'raises a NotImplementedError' do
         allow(http_service).to receive(:get).and_return('mocked_response')
-        expect { incomplete_fetcher.fetch }.to raise_error(NotImplementedError, "Subclasses must implement the `parse` method")
+        expect { incomplete_fetcher.fetch }.to raise_error(NotImplementedError, 'Subclasses must implement the `parse` method')
       end
     end
   end

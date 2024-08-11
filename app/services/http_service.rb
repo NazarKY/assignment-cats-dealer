@@ -2,6 +2,19 @@
 
 require 'rest-client'
 
+# HttpService provides a robust mechanism for making HTTP GET requests with
+# built-in retry logic. This service is designed to handle transient network
+# errors by retrying the request multiple times before failing.
+#
+# The service handles specific RestClient exceptions such as timeouts and
+# open timeouts, and logs any issues encountered during the request process.
+#
+# Example usage:
+#   service = HttpService.new
+#   response = service.get('https://example.com/api/resource')
+#
+# The number of retries and the delay between retries are configurable through
+# the MAX_RETRIES and RETRY_DELAY constants.
 class HttpService
   MAX_RETRIES = 3
   RETRY_DELAY = 2 # seconds
